@@ -1,0 +1,17 @@
+{
+  "name": "pinguapps.blazor.qrcode",
+  "version": "1.0.0",
+  "scripts": {
+    "build:dev:js": "esbuild ./js/index.js --outfile=./wwwroot/js/index.bundle.js --bundle --sourcemap --format=esm --banner:js=\"// Copyright PinguApps (c) - https://twitter.com/Pingu2k4\"",
+    "build:prod:js": "esbuild ./js/index.js --outfile=./wwwroot/js/index.bundle.js --bundle --minify --format=esm --banner:js=\"// Copyright PinguApps (c) - https://twitter.com/Pingu2k4\"",
+    "watch:dev:js": "esbuild ./js/index.js --outfile=./wwwroot/js/index.bundle.js --bundle --sourcemap --watch --format=esm --banner:js=\"// Copyright PinguApps (c) - https://twitter.com/Pingu2k4\""
+  },
+  "author": "Pingu",
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.20.0"
+  },
+  "dependencies": {
+    "qrcode-generator": "^1.4.4"
+  }
+}

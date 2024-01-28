@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.26" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+	
+	<!-- The following ItemGroup has confusing parts where we first remove, and then include content. -->
+	<!-- The reason for this is described here: https://github.com/dotnet/aspnetcore/issues/35274 -->
+	<!-- And originally was enquired about here: https://github.com/Material-Blazor/Material.Blazor/issues/1225 -->
+
+	<ItemGroup>
+		<InputJs Include="js\*.js;js\*.mjs;js\*.cjs;js\*.ts;js\*.jsx;js\*.tsx" />
+		<OutputJs Include="wwwroot\js\*.js;wwwroot\js\*.map" />
+		<!-- Keep this -->
+		<Content Remove="@(OutputJs)" />
+		<Content Include="@(OutputJs)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<UpToDateCheckInput Include="@(InputJs)" Set="Js" />
+		<UpToDateCheckOutput Include="@(OutputJs)" Set="Js" />
+	</ItemGroup>
+
+	<Target Name="InstallNpm" BeforeTargets="PreBuildEvent">
+		<Message Importance="high" Text="***** Installing NPM Packages" />
+		<Exec Command="npm install" ContinueOnError="true" StandardOutputImportance="low" StandardErrorImportance="low" LogStandardErrorAsError="false" IgnoreExitCode="true">
+			<Output TaskParameter="ExitCode" PropertyName="NpmReturnCode" />
+		</Exec>
+		<Message Importance="high" Text="***** NPM Packages Installed" Condition="'$(NpmReturnCode)' == 0" />
+	</Target>
+
+	<Target Name="NpmError" BeforeTargets="PreBuildEvent" AfterTargets="InstallNpm" Condition="'$(NpmReturnCode)' != 0">
+		<Message Importance="high" Text="********************************************************" />
+		<Message Importance="high" Text="********************************************************" />
+		<Message Importance="high" Text="***** 'npm install' return code was $(NpmReturnCode)" />
+		<Message Importance="high" Text="***** CSS and JS not build as there is an issue with NPM" />
+		<Message Importance="high" Text="***** If the return code is 1, then check package.json" />
+		<Message Importance="high" Text="***** If the return code is 9009, npm is not present." />
+		<Message Importance="high" Text="***** For all other codes, check the npm documentation" />
+		<Message Importance="high" Text="********************************************************" />
+		<Message Importance="high" Text="********************************************************" />
+	</Target>
+
+	<Target Name="BuildJs" BeforeTargets="PreBuildEvent" AfterTargets="InstallNpm" Condition="'$(Configuration)' == 'Release' And '$(NpmReturnCode)' == 0">
+		<Message Importance="high" Text="***** Building JS files..." />
+		<Exec Command="npm run build:prod:js" />
+	</Target>
+
+	<Target Name="BuildJs-dev" BeforeTargets="PreBuildEvent" AfterTargets="InstallNpm" Condition="'$(Configuration)' != 'Release' And '$(NpmReturnCode)' == 0">
+		<Message Importance="high" Text="***** Building JS files..." />
+		<Exec Command="npm run build:dev:js" />
+	</Target>
+
+</Project>

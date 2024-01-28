@@ -1,0 +1,78 @@
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject IJSRuntime JSRuntime
+
+<div class="@Class" id="@Id">
+    @MarkupString
+</div>
+
+@code {
+    [Parameter] public QRTagType TagType { get; set; } = QRTagType.Image;
+    [Parameter] public ErrorCorrection ErrorCorrection { get; set; } = ErrorCorrection.Low;
+    [Parameter] public string Data { get; set; } = string.Empty;
+    [Parameter] public int? TargetSize { get; set; }
+    [Parameter] public int? CellSize { get; set; }
+    [Parameter] public int? Margin { get; set; }
+    [Parameter] public string? AltText { get; set; }
+    [Parameter] public bool Scalable { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public string? Id { get; set; }
+
+    IJSObjectReference? Module { get; set; }
+    MarkupString MarkupString { get; set; }
+    string LastOptions { get; set; } = string.Empty;
+    bool HaveParametersChanged { get; set; }
+
+    JsonSerializerOptions _serializeOptions = new()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        if (LastOptions != GetOptions())
+        {
+            HaveParametersChanged = true;
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender || HaveParametersChanged)
+        {
+            if (Module is null)
+            {
+                Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/PinguApps.Blazor.QRCode/js/index.bundle.js");
+            }
+
+            HaveParametersChanged = false;
+            LastOptions = GetOptions();
+
+            var markup = await Module.InvokeAsync<string>($"get{TagType}", LastOptions);
+
+            MarkupString = new MarkupString(markup);
+
+            StateHasChanged();
+        }
+    }
+
+    string GetOptions()
+    {
+        return JsonSerializer.Serialize(new
+        {
+            ErrorCorrection = ErrorCorrection,
+            Data = Data,
+            TargetSize = TargetSize,
+            CellSize = CellSize,
+            Margin = Margin,
+            AltText = AltText,
+            Scalable = Scalable
+        }, _serializeOptions);
+    }
+}
