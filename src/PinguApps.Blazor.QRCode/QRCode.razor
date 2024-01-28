@@ -25,9 +25,9 @@
     bool HaveParametersChanged { get; set; }
 
     JsonSerializerOptions _serializeOptions = new()
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        };
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+    };
 
 
     protected override async Task OnParametersSetAsync()
