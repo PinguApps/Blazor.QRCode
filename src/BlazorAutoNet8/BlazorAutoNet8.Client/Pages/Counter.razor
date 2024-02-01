@@ -1,0 +1,27 @@
+﻿@page "/counter"
+@rendermode InteractiveAuto
+
+<PageTitle>Counter</PageTitle>
+
+<button @onclick="ChangeData" style="margin-bottom: 12px;">
+    Change!
+</button>
+
+<QRCode TagType="QRTagType.Image" TargetSize="256" Margin="0" AltText="This is some alt text!" Data="@Data">
+    <LoadingTemplate>
+        <img src="https://placehold.co/256x256" />
+    </LoadingTemplate>
+</QRCode>
+
+<QRCode TagType="QRTagType.Svg" CellSize="16" Margin="10" Data="This is an SVG, with cell size of 16, and a margin of 10" />
+
+<QRCode TagType="QRTagType.Table" Data="This is a table, with as many settings as default as possible" />
+
+@code {
+    string Data { get; set; } = "This is an image, with target size of 256";
+
+    void ChangeData()
+    {
+        Data = Guid.NewGuid().ToString();
+    }
+}

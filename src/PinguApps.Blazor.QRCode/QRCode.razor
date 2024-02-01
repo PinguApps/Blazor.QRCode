@@ -1,78 +1,113 @@
-@using System.Text.Json
-@using System.Text.Json.Serialization
-@inject IJSRuntime JSRuntime
+@using Net.Codecrete.QrCodeGenerator
+@using System.Text
 
 <div class="@Class" id="@Id">
     @MarkupString
 </div>
 
 @code {
-    [Parameter] public QRTagType TagType { get; set; } = QRTagType.Image;
+    /// <summary>
+    /// Sets the error correction level for the QR code, which enables it to be decoded even if partially damaged or obscured. Default is <see cref="ErrorCorrection.Low" />
+    /// </summary>
     [Parameter] public ErrorCorrection ErrorCorrection { get; set; } = ErrorCorrection.Low;
+    /// <summary>
+    /// The data to be encoded into the QR code.
+    /// </summary>
     [Parameter] public string Data { get; set; } = string.Empty;
-    [Parameter] public int? TargetSize { get; set; }
-    [Parameter] public int? CellSize { get; set; }
-    [Parameter] public int? Margin { get; set; }
-    [Parameter] public string? AltText { get; set; }
-    [Parameter] public bool Scalable { get; set; }
-
+    /// <summary>
+    /// Sets the height of the generated SVG. Default is "100%".
+    /// </summary>
+    [Parameter] public string Height { get; set; } = "100%";
+    /// <summary>
+    /// Sets the width of the generated SVG. Default is "100%".
+    /// </summary>
+    [Parameter] public string Width { get; set; } = "100%";
+    /// <summary>
+    /// The number of empty cells as padding around the QR code. Default is 1.
+    /// </summary>
+    [Parameter] public int PaddingCells { get; set; } = 1;
+    /// <summary>
+    /// Sets the foreground color of the QR code. Default is "#000000" (black).
+    /// </summary>
+    [Parameter] public string ForeColor { get; set; } = "#000000";
+    /// <summary>
+    /// Sets the background color of the QR code. Default is "#ffffff" (white).
+    /// </summary>
+    [Parameter] public string BackColor { get; set; } = "#ffffff";
+    /// <summary>
+    /// Provides an accessible description for the QR code, enhancing usability for screen reader users.
+    /// This description is used as the aria-label attribute value of the QR code's SVG element,
+    /// offering context or details about the QR code's content or purpose.
+    /// The default value is "QR Code".
+    /// </summary>
+    [Parameter] public string AriaDescription { get; set; } = "QR Code";
+    /// <summary>
+    /// Optional CSS class to be applied to the QR code container. Default is null.
+    /// </summary>
     [Parameter] public string? Class { get; set; }
+    /// <summary>
+    /// Optional ID to be applied to the QR code container. Default is null.
+    /// </summary>
     [Parameter] public string? Id { get; set; }
 
-    IJSObjectReference? Module { get; set; }
     MarkupString MarkupString { get; set; }
-    string LastOptions { get; set; } = string.Empty;
-    bool HaveParametersChanged { get; set; }
 
-    JsonSerializerOptions _serializeOptions = new()
+    const string SvgTagPart1 = "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" viewbox=\"0 0 ";
+    const string SvgTagPart2 = "\" stroke=\"none\" width=\"";
+    const string SvgTagPart3 = "\" height=\"";
+    const string SvgTagPart4 = "\" role=\"img\" aria-label=\"";
+    const string SvgTagPart5 = "\">";
+    const string RectTagPart1 = "<rect width=\"100%\" height=\"100%\" fill=\"";
+    const string RectTagPart2 = "\"></rect>";
+    const string PathTagPart1 = "<path d=\"";
+    const string PathTagPart2 = "\" fill=\"";
+    const string PathTagPart3 = "\"></path>";
+    const string ClosingTag = "</svg>";
+
+    QrCode.Ecc GetEcc => ErrorCorrection switch
     {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        ErrorCorrection.Low => QrCode.Ecc.Low,
+        ErrorCorrection.Medium => QrCode.Ecc.Medium,
+        ErrorCorrection.Quartile => QrCode.Ecc.Quartile,
+        ErrorCorrection.High => QrCode.Ecc.High,
+        _ => throw new Exception($"Invalid value assigned to {nameof(ErrorCorrection)}")
     };
-
 
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
 
-        if (LastOptions != GetOptions())
-        {
-            HaveParametersChanged = true;
-        }
+        GenerateQR();
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    void GenerateQR()
     {
-        await base.OnAfterRenderAsync(firstRender);
+        var qr = QrCode.EncodeText(Data, GetEcc);
+        var path = qr.ToGraphicsPath(PaddingCells);
+        var size = qr.Size + PaddingCells * 2;
 
-        if (firstRender || HaveParametersChanged)
-        {
-            if (Module is null)
-            {
-                Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/PinguApps.Blazor.QRCode/js/index.bundle.js");
-            }
+        var sb = new StringBuilder();
+        sb.Append(SvgTagPart1)
+            .Append(size)
+            .Append(" ")
+            .Append(size)
+            .Append(SvgTagPart2)
+            .Append(Width)
+            .Append(SvgTagPart3)
+            .Append(Height)
+            .Append(SvgTagPart4)
+            .Append(AriaDescription)
+            .AppendLine(SvgTagPart5)
+            .Append(RectTagPart1)
+            .Append(BackColor)
+            .AppendLine(RectTagPart2)
+            .Append(PathTagPart1)
+            .Append(path)
+            .Append(PathTagPart2)
+            .Append(ForeColor)
+            .AppendLine(PathTagPart3)
+            .AppendLine(ClosingTag);
 
-            HaveParametersChanged = false;
-            LastOptions = GetOptions();
-
-            var markup = await Module.InvokeAsync<string>($"get{TagType}", LastOptions);
-
-            MarkupString = new MarkupString(markup);
-
-            StateHasChanged();
-        }
-    }
-
-    string GetOptions()
-    {
-        return JsonSerializer.Serialize(new
-        {
-            ErrorCorrection = ErrorCorrection,
-            Data = Data,
-            TargetSize = TargetSize,
-            CellSize = CellSize,
-            Margin = Margin,
-            AltText = AltText,
-            Scalable = Scalable
-        }, _serializeOptions);
+        MarkupString = new MarkupString(sb.ToString());
     }
 }

@@ -1,31 +1,36 @@
-﻿using System.Runtime.Serialization;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿namespace PinguApps.Blazor.QRCode;
 
-namespace PinguApps.Blazor.QRCode;
-
-[JsonConverter(typeof(DescriptionEnumConverter<ErrorCorrection>))]
+/// <summary>
+/// Represents the error correction level used in a QR code.
+/// Error correction allows a QR code to be read even if it is partially dirty or damaged.
+/// </summary>
 public enum ErrorCorrection
 {
-    [EnumMember(Value = "L")]
+    /// <summary>
+    /// Low level of error correction.
+    /// Allows for approximately 7% of error correction capacity.
+    /// Suitable for scenarios where there is minimal risk of the QR code getting damaged.
+    /// </summary>
     Low,
-    [EnumMember(Value = "M")]
+
+    /// <summary>
+    /// Medium level of error correction.
+    /// Allows for approximately 15% of error correction capacity.
+    /// Provides a balance between data capacity and error correction capability.
+    /// </summary>
     Medium,
-    [EnumMember(Value = "Q")]
+
+    /// <summary>
+    /// Quartile level of error correction.
+    /// Allows for approximately 25% of error correction capacity.
+    /// Suitable for cases where the QR code might be exposed to more significant damage.
+    /// </summary>
     Quartile,
-    [EnumMember(Value = "H")]
+
+    /// <summary>
+    /// High level of error correction.
+    /// Allows for approximately 30% of error correction capacity.
+    /// Ideal for situations where the QR code is expected to be in a harsh environment.
+    /// </summary>
     High
-}
-
-public class DescriptionEnumConverter<T> : JsonConverter<T> where T : Enum
-{
-    public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    {
-        throw new NotImplementedException("Reading has not been implemented.");
-    }
-
-    public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
-    {
-        writer.WriteStringValue(value.GetEnumMemberValue<T>());
-    }
 }
