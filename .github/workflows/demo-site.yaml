@@ -56,7 +56,7 @@ jobs:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Publish Project
-      run: dotnet publish src/BlazorWasmNet6/BlazorWasmNet6.csproj -c Release --nologo
+      run: dotnet publish src/BlazorWasmNet6/BlazorWasmNet6.csproj -c Release -f net6.0 --nologo
 
     - name: Change base tag
       run: sed -i 's/<base href="\/" \/>/<base href="\/Blazor.QRCode\/" \.>/g' src/BlazorWasmNet6/bin/Release/net6.0/publish/wwwroot/index.html
