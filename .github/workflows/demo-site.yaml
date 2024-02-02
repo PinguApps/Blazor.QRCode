@@ -53,7 +53,9 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+        dotnet-version: |
+          ${{ env.DOTNET_VERSION }}
+          8.0
 
     - name: Publish Project
       run: dotnet publish src/BlazorWasmNet6/BlazorWasmNet6.csproj -c Release -f net6.0 --nologo
