@@ -1,4 +1,6 @@
 name: Build & Deploy Demo Site
+permissions:
+  contents: write
 
 on:
   push:
