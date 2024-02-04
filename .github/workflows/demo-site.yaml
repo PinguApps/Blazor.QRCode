@@ -44,7 +44,7 @@ jobs:
 
   deploy-to-github-pages:
     needs: changes
-    if: ${{ !failure() && (github.event_name == 'workflow_dispatch') || needs.changes.outputs.changes-detected == 'true' }}
+    if: ${{ !failure() && ((github.event_name == 'workflow_dispatch') || needs.changes.outputs.changes-detected == 'true') }}
     runs-on: ubuntu-latest
     steps:  
     - uses: actions/checkout@v2
@@ -59,6 +59,9 @@ jobs:
           ${{ env.DOTNET_VERSION }}
           7.0
           8.0
+
+    - name: Test
+      run: dotnet test -c Release .\src\PinguApps.Blazor.QRCode.Tests\
 
     - name: Publish Project
       run: dotnet publish src/BlazorWasmNet6/BlazorWasmNet6.csproj -c Release -f net6.0 --nologo

@@ -1,0 +1,27 @@
+name: Build & Test PR
+
+on:
+  pull_request:
+    branches: [ main ]
+
+env:
+  DOTNET_VERSION: '8.0'
+    
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup DotNet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Build
+        run: dotnet build -c Release src/PinguApps.Blazor.QRCode/PinguApps.Blazor.QRCode.csproj
+
+      - name: Test
+        run: dotnet test -c Release src/PinguApps.Blazor.QRCode.Tests/
