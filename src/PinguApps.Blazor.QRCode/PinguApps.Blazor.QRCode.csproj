@@ -9,7 +9,7 @@
     <Company>PinguApps</Company>
     <Copyright>Copyright 2024 (c) Matthew Parker. All rights reserved.</Copyright>
 
-    <Description>A library for Blazor to generate QR codes, targeting specifically working with static SSR</Description>
+    <Description>A Blazor component for generating QR codes. This component encodes specified data into a QR code image, which can be customized in terms of size, colors, and error correction level. The QR code is generated as an SVG for optimal scalability and clarity.</Description>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
