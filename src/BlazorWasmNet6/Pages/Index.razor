@@ -9,21 +9,21 @@
     <button @onclick="ChangeData" class="mb-4 align-self-start">
         Change!
     </button>
-    <QRCode Data="@Data" Width="150px" Height="150px"  />
+    <QRCode Data="@Data" Size="150px"  />
 </div>
 
 <div class="card p-3">
     <p>
         250px, red and aqua, 4 padding cells
     </p>
-    <QRCode Data="This is a QR code of size 250px, using colours red and aqua and 4 padding cells!" Width="250px" Height="250px" ForeColor="red" BackColor="aqua" PaddingCells="4" />
+    <QRCode Data="This is a QR code of size 250px, using colours red and aqua and 4 padding cells!" Size="250px" ForeColor="red" BackColor="aqua" PaddingCells="4" />
 </div>
 
 <div class="card p-3">
     <p>
         250px, lots of encoded data
     </p>
-    <QRCode Data="This is a 250px QR code, which has a lot of data. There really is much more here than the examples above, and so there is more data packed into a smaller area. This library was made by Pingu, by the way. Isn't this such an awesome library? It even works with the new .net 8 Blazor project type and works with static SSR! You only miss out on it updating to changed parameters in that mode, but that is to be expected as it is non-interactive!" Width="250px" />
+    <QRCode Data="This is a 250px QR code, which has a lot of data. There really is much more here than the examples above, and so there is more data packed into a smaller area. This library was made by Pingu, by the way. Isn't this such an awesome library? It even works with the new .net 8 Blazor project type and works with static SSR! You only miss out on it updating to changed parameters in that mode, but that is to be expected as it is non-interactive!" Size="250px" />
 </div>
 
 @code {
