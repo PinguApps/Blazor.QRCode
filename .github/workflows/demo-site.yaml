@@ -61,7 +61,7 @@ jobs:
           8.0
 
     - name: Test
-      run: dotnet test -c Release .\src\PinguApps.Blazor.QRCode.Tests\
+      run: dotnet test -c Release src/PinguApps.Blazor.QRCode.Tests/
 
     - name: Publish Project
       run: dotnet publish src/BlazorWasmNet6/BlazorWasmNet6.csproj -c Release -f net6.0 --nologo
