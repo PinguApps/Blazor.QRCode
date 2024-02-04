@@ -62,3 +62,10 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+pre[class*="language-" ],
+code[class*="language-"] {
+    white-space: pre-wrap !important;
+    overflow: auto !important;
+    word-break: break-word !important;
+}
