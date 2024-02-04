@@ -26,17 +26,59 @@ Now you can simply use the component:
 
 ### 🟣 Parameters
 
-| Parameter Name | Type | Required? | Description | Default Value | Possible Values |
-|:--:|:--:|:--:|:--:|:--:|:--:|
-| Data | String | ❌ | The data to be encoded into the QR code. | `string.Empty` |  |
-| ErrorCorrection | ErrorCorrection | ❌ | Sets the error correction level for the QR code, which enables it to be decoded even if partially damaged or obscured. | `ErrorCorrection.Low` | `ErrorCorrection.Low`<br>`ErrorCorrection.Medium`<br>`ErrorCorrection.Quartile`<br>`ErrorCorrection.High` |
-| Size | String | ❌ | Sets the width and height of the generated SVG. | 100% | Any valid html size for width & height |
-| PaddingCells | Int | ❌ | The number of empty cells as padding around the QR code. | 1 |  |
-| ForeColor | String | ❌ | Sets the foreground color of the QR code. | #000000 | Any valid html color |
-| BackColor | String | ❌ | Sets the background color of the QR code. | #ffffff | Any valid html color |
-| AriaDescription | String | ❌ | Provides an accessible description for the QR code, enhancing usability for screen reader users. This description is used as the aria-label attribute value of the QR code's SVG element, offering context or details about the QR code's content or purpose. | QR Code |  |
-| Class | String? | ❌ | Optional CSS class to be applied to the QR code. | `null` |  |
-| Id | String? | ❌ | Optional ID to be applied to the QR code. | `null` |  |
+#### Data
+The data to be encoded into the QR code.
+| Type | Required? | Default Value |
+|:--:|:--:|:--:|
+| String | ❌ | `string.Empty` |
+
+#### ErrorCorrection
+Sets the error correction level for the QR code, which enables it to be decoded even if partially damaged or obscured.
+| Type | Required? | Default Value | Possible  Values |
+|:--:|:--:|:--:|:--:|
+| ErrorCorrection | ❌ | `ErrorCorrection.Low` |  `ErrorCorrection.Low`<br>`ErrorCorrection.Medium`<br>`ErrorCorrection.Quartile`<br>`ErrorCorrection.High` |
+
+#### Size
+Sets the width and height of the generated SVG.
+| Type | Required? | Default Value | Possible  Values |
+|:--:|:--:|:--:|:--:|
+| String | ❌ | 100% | Any valid html size for width & height |
+
+#### PaddingCells
+The number of empty cells as padding around the QR code.
+| Type | Required? | Default Value |
+|:--:|:--:|:--:|
+| Int | ❌ | 1 |
+
+#### ForeColor
+Sets the foreground color of the QR code.
+| Type | Required? | Default Value | Possible  Values |
+|:--:|:--:|:--:|:--:|
+| String | ❌ | #000000 | Any valid html color |
+
+#### BackColor
+Sets the background color of the QR code.
+| Type | Required? | Default Value | Possible  Values |
+|:--:|:--:|:--:|:--:|
+| String | ❌ | #ffffff | Any valid html color |
+
+#### AriaDescription
+Provides an accessible description for the QR code, enhancing usability for screen reader users. This description is used as the aria-label attribute value of the QR code's SVG element, offering context or details about the QR code's content or purpose.
+| Type | Required? | Default Value |
+|:--:|:--:|:--:|
+| String | ❌ | QR Code |
+
+#### Class
+Optional CSS class to be applied to the QR code.
+| Type | Required? | Default Value |
+|:--:|:--:|:--:|
+| String? | ❌ | `null` |
+
+#### Id
+Optional ID to be applied to the QR code.
+| Type | Required? | Default Value |
+|:--:|:--:|:--:|
+| String? | ❌ | `null` |
 
 ## ✅ Features
 - **JavaScript-Free**: No dependency on JavaScript, ensuring full functionality even in environments where JavaScript is disabled or not supported.
