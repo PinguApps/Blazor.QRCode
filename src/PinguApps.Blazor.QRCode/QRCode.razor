@@ -1,9 +1,7 @@
 @using Net.Codecrete.QrCodeGenerator
 @using System.Text
 
-<div class="@Class" id="@Id">
-    @MarkupString
-</div>
+@MarkupString
 
 @code {
     /// <summary>
@@ -92,8 +90,23 @@
             .Append(SvgTagPart3)
             .Append(Size)
             .Append(SvgTagPart4)
-            .Append(AriaDescription)
-            .AppendLine(SvgTagPart5)
+            .Append(AriaDescription);
+
+        if(Id is not null)
+        {
+            sb.Append("\"")
+                .Append(" id=\"")
+                .Append(Id);
+        }
+
+        if(Class is not null)
+        {
+            sb.Append("\"")
+                .Append(" class=\"")
+                .Append(Class);
+        }
+
+        sb.AppendLine(SvgTagPart5)
             .Append(RectTagPart1)
             .Append(BackColor)
             .AppendLine(RectTagPart2)
