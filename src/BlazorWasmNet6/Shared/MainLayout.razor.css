@@ -79,3 +79,17 @@ main {
         padding-right: 1.5rem !important;
     }
 }
+
+.badge-row {
+    position: sticky;
+    top: 3.5rem;
+    z-index: 1;
+    padding: 1rem 1.5rem;
+    background: rgb(247, 247, 247);
+    background: linear-gradient(0deg, rgba(247, 247, 247, 1) 0%, rgba(224, 224, 224, 1) 100%);
+    border-bottom: 1px solid #d6d5d5;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    row-gap: 0.5rem;
+}
