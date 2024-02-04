@@ -1,4 +1,5 @@
 using AngleSharp.Css.Values;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using System.Drawing;
 
 namespace PinguApps.Blazor.QRCode.Tests;
@@ -203,5 +204,23 @@ public class QRCodeTests
 
         // Assert
         Assert.Equal(ariaDescription, component.Find("svg").GetAttribute("aria-label"));
+    }
+
+    [Theory]
+    [InlineData("Hello World!")]
+    [InlineData("https://www.google.com/")]
+    [InlineData("{\"foo\":\"bar\",\"baz\":69}")]
+    public async Task DataSnapshots(string data)
+    {
+        using var context = new TestContext();
+
+        // Act
+        var component = context.RenderComponent<QRCode>(parameters => parameters
+            .Add(p => p.Data, data));
+
+        // Assert
+        var settings = new VerifySettings();
+        settings.UseParameters(data);
+        await Verify(component.Find("path").GetAttribute("d"), settings);
     }
 }

@@ -397,4 +397,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-src/PinguApps.Blazor.QRCode/wwwroot/js/
+*.received.*
