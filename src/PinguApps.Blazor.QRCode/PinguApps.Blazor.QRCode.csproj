@@ -16,7 +16,7 @@
     <PackageId>PinguApps.Blazor.QRCode</PackageId>
     <PackageTags>Blazor;QR;QR Code;Pingu;PinguApps;Pingu Apps;Component;ASP.NET;CSharp;Web</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/PinguApps/Blazor.QRCode</PackageProjectUrl>
+    <PackageProjectUrl>https://pinguapps.github.io/Blazor.QRCode/</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/PinguApps/Blazor.QRCode</RepositoryUrl>

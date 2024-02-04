@@ -1,33 +1,82 @@
 ﻿@page "/"
+@inject IJSRuntime JSRuntime
 
 <PageTitle>PinguApps.Blazor.QRCode</PageTitle>
 
-<div class="card p-3">
+<div class="card p-3 line-numbers">
+    <p>
+        150px, encoded "Hello World!"
+    </p>
+
+    <QRCode Data="Hello World!" Size="150px" />
+    <pre>
+        <code class="language-razor" data-prismjs-copy="Copy">
+            @(@"<QRCode Data=""Hello World!"" Size=""150px"" />")
+        </code>
+    </pre>
+</div>
+
+<div class="card p-3 line-numbers">
     <p>
         150px, Hooked up to change button (will change the data to a new Guid each time)
     </p>
     <button @onclick="ChangeData" class="mb-4 align-self-start">
         Change!
     </button>
-    <QRCode Data="@Data" Size="150px"  />
+    <QRCode Data="@Data" Size="150px" />
+    <pre>
+        <code class="language-razor" data-prismjs-copy="Copy">
+            @(@"<button @onclick=""ChangeData"">
+    Change!
+</button>
+
+<QRCode Data=""@Data"" Size=""150px"" />
+
+@code {
+    string Data { get; set; } = ""This is a QR code of size 150px by 150px"";
+
+    void ChangeData()
+    {
+        Data = Guid.NewGuid().ToString();
+    }
+}")
+        </code>
+    </pre>
 </div>
 
-<div class="card p-3">
+<div class="card p-3 line-numbers">
     <p>
         250px, red and aqua, 4 padding cells
     </p>
-    <QRCode Data="This is a QR code of size 250px, using colours red and aqua and 4 padding cells!" Size="250px" ForeColor="red" BackColor="aqua" PaddingCells="4" />
+    <QRCode Data="This is a QR code of size 250px, using colours red and aqua and 4 padding cells!" Size="250px" ForeColor="#dd2222" BackColor="aqua" PaddingCells="4" />
+    <pre>
+        <code class="language-razor" data-prismjs-copy="Copy">
+            @(@"<QRCode Data=""This is a QR code of size 250px, using colours red and aqua and 4 padding cells!"" Size=""250px"" ForeColor=""#dd2222"" BackColor=""aqua"" PaddingCells=""4"" />")
+        </code>
+    </pre>
 </div>
 
-<div class="card p-3">
+<div class="card p-3 line-numbers">
     <p>
         250px, lots of encoded data
     </p>
     <QRCode Data="This is a 250px QR code, which has a lot of data. There really is much more here than the examples above, and so there is more data packed into a smaller area. This library was made by Pingu, by the way. Isn't this such an awesome library? It even works with the new .net 8 Blazor project type and works with static SSR! You only miss out on it updating to changed parameters in that mode, but that is to be expected as it is non-interactive!" Size="250px" />
+    <pre>
+    <code class="language-razor" data-prismjs-copy="Copy">
+            @(@"<QRCode Data=""This is a 250px QR code, which has a lot of data. There really is much more here than the examples above, and so there is more data packed into a smaller area. This library was made by Pingu, by the way. Isn't this such an awesome library? It even works with the new .net 8 Blazor project type and works with static SSR! You only miss out on it updating to changed parameters in that mode, but that is to be expected as it is non-interactive!"" Size=""250px"" />")
+        </code>
+    </pre>
 </div>
 
 @code {
     string Data { get; set; } = "This is a QR code of size 150px by 150px";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        await JSRuntime.InvokeVoidAsync("Prism.highlightAll");
+    }
 
     void ChangeData()
     {
