@@ -5,11 +5,13 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinguApps.Blazor.QRCode", "PinguApps.Blazor.QRCode\PinguApps.Blazor.QRCode.csproj", "{CC6DE46A-E2B5-4176-BC53-3201450F5819}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWasmNet6", "BlazorWasmNet6\BlazorWasmNet6.csproj", "{5EE153D8-9BB9-4F37-BB6A-3FE240C01DC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWasmNet6", "BlazorWasmNet6\BlazorWasmNet6.csproj", "{5EE153D8-9BB9-4F37-BB6A-3FE240C01DC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAutoNet8", "BlazorAutoNet8\BlazorAutoNet8\BlazorAutoNet8.csproj", "{F2467481-E08D-4582-BF6B-AA7474D50C95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAutoNet8", "BlazorAutoNet8\BlazorAutoNet8\BlazorAutoNet8.csproj", "{F2467481-E08D-4582-BF6B-AA7474D50C95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAutoNet8.Client", "BlazorAutoNet8\BlazorAutoNet8.Client\BlazorAutoNet8.Client.csproj", "{5B01829E-EB84-4827-810D-D11AC9B02C01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAutoNet8.Client", "BlazorAutoNet8\BlazorAutoNet8.Client\BlazorAutoNet8.Client.csproj", "{5B01829E-EB84-4827-810D-D11AC9B02C01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinguApps.Blazor.QRCode.Tests", "PinguApps.Blazor.QRCode.Tests\PinguApps.Blazor.QRCode.Tests.csproj", "{7D30D43F-F62F-4770-9175-CA931539A3BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5B01829E-EB84-4827-810D-D11AC9B02C01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B01829E-EB84-4827-810D-D11AC9B02C01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B01829E-EB84-4827-810D-D11AC9B02C01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D30D43F-F62F-4770-9175-CA931539A3BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D30D43F-F62F-4770-9175-CA931539A3BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D30D43F-F62F-4770-9175-CA931539A3BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D30D43F-F62F-4770-9175-CA931539A3BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
