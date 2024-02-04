@@ -69,3 +69,7 @@ code[class*="language-"] {
     overflow: auto !important;
     word-break: break-word !important;
 }
+
+.code-toolbar {
+    z-index: 0 !important;
+}
