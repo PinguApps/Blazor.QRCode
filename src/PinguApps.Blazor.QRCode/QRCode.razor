@@ -15,13 +15,9 @@
     /// </summary>
     [Parameter] public string Data { get; set; } = string.Empty;
     /// <summary>
-    /// Sets the height of the generated SVG. Default is "100%".
+    /// Sets the width and height of the generated SVG. Default is "100%".
     /// </summary>
-    [Parameter] public string Height { get; set; } = "100%";
-    /// <summary>
-    /// Sets the width of the generated SVG. Default is "100%".
-    /// </summary>
-    [Parameter] public string Width { get; set; } = "100%";
+    [Parameter] public string Size { get; set; } = "100%";
     /// <summary>
     /// The number of empty cells as padding around the QR code. Default is 1.
     /// </summary>
@@ -84,17 +80,17 @@
     {
         var qr = QrCode.EncodeText(Data, GetEcc);
         var path = qr.ToGraphicsPath(PaddingCells);
-        var size = qr.Size + PaddingCells * 2;
+        var viewboxSize = qr.Size + PaddingCells * 2;
 
         var sb = new StringBuilder();
         sb.Append(SvgTagPart1)
-            .Append(size)
+            .Append(viewboxSize)
             .Append(" ")
-            .Append(size)
+            .Append(viewboxSize)
             .Append(SvgTagPart2)
-            .Append(Width)
+            .Append(Size)
             .Append(SvgTagPart3)
-            .Append(Height)
+            .Append(Size)
             .Append(SvgTagPart4)
             .Append(AriaDescription)
             .AppendLine(SvgTagPart5)
