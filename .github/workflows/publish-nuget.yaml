@@ -23,6 +23,9 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
+    - name: Test
+      run: dotnet test -c Release src/PinguApps.Blazor.QRCode.Tests/
+
     - name: Create Release NuGet Package
       run: |
         arrTag=(${GITHUB_REF//\// })
