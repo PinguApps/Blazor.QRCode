@@ -5,6 +5,7 @@ on:
     branches: [ main ]
 
 env:
+  PROJECT_NAME: PinguApps.Blazor.QRCode
   DOTNET_VERSION: '8.0'
     
 jobs:
@@ -12,16 +13,19 @@ jobs:
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      - name: Setup DotNet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: Setup DotNet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Build
-        run: dotnet build -c Release src/PinguApps.Blazor.QRCode/PinguApps.Blazor.QRCode.csproj
+    - name: Restore Packages
+      run: dotnet restore
 
-      - name: Test
-        run: dotnet test -c Release src/PinguApps.Blazor.QRCode.Tests/
+    - name: Build
+      run: dotnet build -c Release --no-restore src/$PROJECT_NAME/$PROJECT_NAME.csproj
+
+    - name: Test
+      run: dotnet test -c Release --no-restore tests/$PROJECT_NAME.Tests/
