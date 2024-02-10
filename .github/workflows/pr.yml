@@ -28,4 +28,4 @@ jobs:
       run: dotnet build -c Release --no-restore src/$PROJECT_NAME/$PROJECT_NAME.csproj
 
     - name: Test
-      run: dotnet test -c Release --no-restore tests/$PROJECT_NAME.Tests/
+      run: dotnet test -c Release --no-restore --verbosity normal tests/$PROJECT_NAME.Tests/

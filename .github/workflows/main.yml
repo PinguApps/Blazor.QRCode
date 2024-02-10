@@ -35,7 +35,7 @@ jobs:
       run: dotnet build -c Release --no-restore src/$PROJECT_NAME/$PROJECT_NAME.csproj
 
     - name: Test
-      run: dotnet test -c Release --no-restore tests/$PROJECT_NAME.Tests/
+      run: dotnet test -c Release --no-restore --verbosity normal tests/$PROJECT_NAME.Tests/
 
   deploy:
     needs: build
@@ -95,7 +95,7 @@ jobs:
         echo Version: $VERSION
         VERSION="${VERSION:1}"
         echo Clean Version: $VERSION
-        dotnet pack -c Release --include-symbols --include-source -p:PackageVersion=$VERSION -o nupkg src/$PROJECT_NAME/$PROJECT_NAME.csproj
+        dotnet pack -c Release --verbosity normal --include-symbols --include-source -p:PackageVersion=$VERSION -o nupkg src/$PROJECT_NAME/$PROJECT_NAME.csproj
 
     - name: Push to NuGet Feed
       run: dotnet nuget push ./nupkg/*.nupkg --source $NUGET_FEED --api-key $NUGET_KEY --skip-duplicate
