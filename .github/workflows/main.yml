@@ -1,0 +1,101 @@
+name: Main
+
+on:
+  push:
+    branches: [ main ]
+  release:
+    types: [ published ]
+  workflow_dispatch:
+
+env:
+  PROJECT_NAME: PinguApps.Blazor.QRCode
+  DOTNET_VERSION: '8.0'
+  BRANCH: 'main'
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NUGET_FEED: https://api.nuget.org/v3/index.json
+  NUGET_KEY: ${{ secrets.NUGET_KEY }}
+
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Restore
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build -c Release --no-restore src/$PROJECT_NAME/$PROJECT_NAME.csproj
+
+    - name: Test
+      run: dotnet test -c Release --no-restore tests/$PROJECT_NAME.Tests/
+
+  deploy:
+    needs: build
+    if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Publish
+      run: dotnet publish -c Release src/BlazorWasmNet6/BlazorWasmNet6.csproj
+
+    - name: Rewrite base href
+      uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
+      with:
+        html_path: src/BlazorWasmNet6/bin/Release/net6.0/publish/wwwroot/index.html
+        base_href: /${{ env.PROJECT_NAME }}/
+    
+    - name: copy index.html to 404.html
+      run: cp src/BlazorWasmNet6/bin/Release/net6.0/publish/wwwroot/index.html src/BlazorWasmNet6/bin/Release/net6.0/publish/wwwroot/404.html
+  
+    - name: Add .nojekyll file
+      run: touch src/BlazorWasmNet6/bin/Release/net6.0/publish/wwwroot/.nojekyll
+      
+    - name: Commit wwwroot to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: src/BlazorWasmNet6/bin/Release/net6.0/publish/wwwroot
+
+  push-nuget:
+    needs: build
+    if: github.event_name == 'release'
+    name: Push Nuget
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+        
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Create Nuget Package
+      run: |
+        arrTag=(${GITHUB_REF//\// })
+        VERSION="${arrTag[2]}"
+        echo Version: $VERSION
+        VERSION="${VERSION:1}"
+        echo Clean Version: $VERSION
+        dotnet pack -c Release --include-symbols --include-source -p:PackageVersion=$VERSION -o nupkg src/$PROJECT_NAME/$PROJECT_NAME.csproj
+
+    - name: Push to NuGet Feed
+      run: dotnet nuget push ./nupkg/*.nupkg --source $NUGET_FEED --api-key $NUGET_KEY --skip-duplicate
