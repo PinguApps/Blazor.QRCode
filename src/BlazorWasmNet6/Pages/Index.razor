@@ -89,7 +89,10 @@
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        await JSRuntime.InvokeVoidAsync("Prism.highlightAll");
+        if(firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("Prism.highlightAll");
+        }
     }
 
     void ChangeData()

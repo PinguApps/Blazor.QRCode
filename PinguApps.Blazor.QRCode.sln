@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "src\PinguApps.Blazor.QRCode", "src\PinguApps.Blazor.QRCode\PinguApps.Blazor.QRCode.csproj", "{CC6DE46A-E2B5-4176-BC53-3201450F5819}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinguApps.Blazor.QRCode", "src\PinguApps.Blazor.QRCode\PinguApps.Blazor.QRCode.csproj", "{CC6DE46A-E2B5-4176-BC53-3201450F5819}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "src\BlazorWasmNet6", "src\BlazorWasmNet6\BlazorWasmNet6.csproj", "{5EE153D8-9BB9-4F37-BB6A-3FE240C01DC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWasmNet6", "src\BlazorWasmNet6\BlazorWasmNet6.csproj", "{5EE153D8-9BB9-4F37-BB6A-3FE240C01DC3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "src\BlazorAutoNet8", "src\BlazorAutoNet8\BlazorAutoNet8\BlazorAutoNet8.csproj", "{F2467481-E08D-4582-BF6B-AA7474D50C95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAutoNet8", "src\BlazorAutoNet8\BlazorAutoNet8\BlazorAutoNet8.csproj", "{F2467481-E08D-4582-BF6B-AA7474D50C95}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "src\BlazorAutoNet8.Client", "src\BlazorAutoNet8\BlazorAutoNet8.Client\BlazorAutoNet8.Client.csproj", "{5B01829E-EB84-4827-810D-D11AC9B02C01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAutoNet8.Client", "src\BlazorAutoNet8\BlazorAutoNet8.Client\BlazorAutoNet8.Client.csproj", "{5B01829E-EB84-4827-810D-D11AC9B02C01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests\PinguApps.Blazor.QRCode.Tests", "tests\PinguApps.Blazor.QRCode.Tests\PinguApps.Blazor.QRCode.Tests.csproj", "{7D30D43F-F62F-4770-9175-CA931539A3BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinguApps.Blazor.QRCode.Tests", "tests\PinguApps.Blazor.QRCode.Tests\PinguApps.Blazor.QRCode.Tests.csproj", "{7D30D43F-F62F-4770-9175-CA931539A3BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
