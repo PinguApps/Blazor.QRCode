@@ -13,6 +13,15 @@
     /// </summary>
     [Parameter] public string Data { get; set; } = string.Empty;
     /// <summary>
+    /// Optional image to place at the center of the QR code.
+    /// Use a higher <see cref="ErrorCorrection" /> to ensure there is enough room for the image<br />
+    /// <see cref="ErrorCorrection.Low" /> can use up to 4% of the image area<br />
+    /// <see cref="ErrorCorrection.Medium" /> can use up to 9% of the image area<br />
+    /// <see cref="ErrorCorrection.Quartile" /> can use up to 15% of the image area<br />
+    /// <see cref="ErrorCorrection.High" /> can use up to 18% of the image area
+    /// </summary>
+    [Parameter] public string? Image { get; set; } = null;
+    /// <summary>
     /// Sets the width and height of the generated SVG. Default is "100%".
     /// </summary>
     [Parameter] public string Size { get; set; } = "100%";
@@ -56,6 +65,12 @@
     const string PathTagPart1 = "<path d=\"";
     const string PathTagPart2 = "\" fill=\"";
     const string PathTagPart3 = "\"></path>";
+    const string ImageTagPart1 = "<image x=\"";
+    const string ImageTagPart2 = "\" y=\"";
+    const string ImageTagPart3 = "\" height=\"";
+    const string ImageTagPart4 = "\" width=\"";
+    const string ImageTagPart5 = "\" href=\"";
+    const string ImageTagPart6 = "\" />";
     const string ClosingTag = "</svg>";
 
     QrCode.Ecc GetEcc => ErrorCorrection switch
@@ -114,8 +129,40 @@
             .Append(path)
             .Append(PathTagPart2)
             .Append(ForeColor)
-            .AppendLine(PathTagPart3)
-            .AppendLine(ClosingTag);
+            .AppendLine(PathTagPart3);
+
+        if(Image is not null)
+        {
+            var maxCoverage = ErrorCorrection switch
+            {
+                ErrorCorrection.Low => 0.04,
+                ErrorCorrection.Medium => 0.09,
+                ErrorCorrection.Quartile => 0.15,
+                ErrorCorrection.High => 0.18,
+                _ => throw new Exception($"Invalid value assigned to {nameof(ErrorCorrection)}")
+            };
+
+            var imageSize = (int) Math.Min(Math.Floor(qr.Size * Math.Sqrt(maxCoverage)), qr.Size - 16);
+
+            if(imageSize > 0)
+            {
+                var padding = PaddingCells + qr.Size / 2 - imageSize / 2;
+
+                sb.Append(ImageTagPart1)
+                    .Append(padding)
+                    .Append(ImageTagPart2)
+                    .Append(padding)
+                    .Append(ImageTagPart3)
+                    .Append(imageSize)
+                    .Append(ImageTagPart4)
+                    .Append(imageSize)
+                    .Append(ImageTagPart5)
+                    .Append(Image)
+                    .AppendLine(ImageTagPart6);
+            }
+        }
+
+        sb.AppendLine(ClosingTag);
 
         MarkupString = new MarkupString(sb.ToString());
     }

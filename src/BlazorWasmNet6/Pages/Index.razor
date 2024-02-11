@@ -18,6 +18,20 @@
 
 <div class="card p-3 line-numbers">
     <p>
+        QR Code with image
+    </p>
+
+    <QRCode Data="This is a QR code showing a logo in its centre. Don't forget to set the error correction to a higher value for the best effect." Size="250px" ErrorCorrection="ErrorCorrection.High" Image="images/logo.png" />
+
+    <pre>
+    <code class="language-razor" data-prismjs-copy="Copy">
+            @(@"<QRCode Data=""This is a QR code showing a logo in its centre. Don't forget to set the error correction to a higher value for the best effect."" Size=""250px"" ErrorCorrection=""ErrorCorrection.High"" Image=""images/logo.png"" />")
+        </code>
+    </pre>
+</div>
+
+<div class="card p-3 line-numbers">
+    <p>
         150px, Hooked up to change button (will change the data to a new Guid each time)
     </p>
     <button @onclick="ChangeData" class="mb-4 align-self-start">
