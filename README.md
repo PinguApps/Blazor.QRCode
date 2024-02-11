@@ -82,6 +82,7 @@ Optional ID to be applied to the QR code.
 ## ✅ Features
 - **JavaScript-Free**: No dependency on JavaScript, ensuring full functionality even in environments where JavaScript is disabled or not supported.
 - **Static SSR & Prerendering Compatibility**: Seamlessly works with static SSR (Server-Side Rendering) and prerendering scenarios, making it suitable for the static SSR pages of the new .NET Identity template as a 2FA QR code generator.
+- **Option to add logo or image**: Allows the ability to add your own image to the center of the QR Code. If using this then favour selecting higher error correction values.
 - **Adjustable Error Correction**: Allows setting the error correction level (Low, Medium, Quartile, High) to make the QR code decodable even when partially damaged or obscured.
 - **Dynamic Data Encoding**: Capable of encoding provided string data into the QR code, facilitating versatile usage scenarios.
 - **Customizable Size**: Supports setting the width and height of the generated SVG QR code, with a default of "100%" for flexible integration into various UI designs.
