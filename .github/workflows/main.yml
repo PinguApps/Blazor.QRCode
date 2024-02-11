@@ -10,6 +10,7 @@ on:
 env:
   PROJECT_NAME: PinguApps.Blazor.QRCode
   DOTNET_VERSION: '8.0'
+  BASE_HREF: 'Blazor.QRCode'
   BRANCH: 'main'
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NUGET_FEED: https://api.nuget.org/v3/index.json
@@ -60,7 +61,7 @@ jobs:
       uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
       with:
         html_path: src/BlazorWasmNet6/bin/Release/net6.0/publish/wwwroot/index.html
-        base_href: /${{ env.PROJECT_NAME }}/
+        base_href: /${{ env.BASE_HREF }}/
     
     - name: copy index.html to 404.html
       run: cp src/BlazorWasmNet6/bin/Release/net6.0/publish/wwwroot/index.html src/BlazorWasmNet6/bin/Release/net6.0/publish/wwwroot/404.html
