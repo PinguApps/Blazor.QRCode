@@ -131,7 +131,7 @@
             .Append(ForeColor)
             .AppendLine(PathTagPart3);
 
-        if(Image is not null)
+        if(!string.IsNullOrEmpty(Image))
         {
             var maxCoverage = ErrorCorrection switch
             {
