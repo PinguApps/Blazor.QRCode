@@ -49,3 +49,14 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+pre[class*="language-" ],
+code[class*="language-"] {
+    white-space: pre-wrap !important;
+    overflow: auto !important;
+    word-break: break-word !important;
+}
+
+.code-toolbar {
+    z-index: 0 !important;
+}

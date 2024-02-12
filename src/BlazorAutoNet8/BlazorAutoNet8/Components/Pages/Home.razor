@@ -1,13 +1,52 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>PinguApps.Blazor.QRCode</PageTitle>
 
-<QRCode Data="@Data" Size="150px" />
+<div class="card p-3 line-numbers">
+    <p>
+        150px, encoded "Hello World!"
+    </p>
 
-<QRCode Data="This is a QR code of size 250px, using colours red and aqua and 4 padding cells!" Size="250px" ForeColor="red" BackColor="aqua" PaddingCells="4" />
+    <QRCode Data="Hello World!" Size="150px" />
 
-<QRCode Data="This is a 250px QR code, which has a lot of data. There really is much more here than the examples above, and so there is more data packed into a smaller area. This library was made by Pingu, by the way. Isn't this such an awesome library? It even works with the new .net 8 Blazor project type and works with static SSR! You only miss out on it updating to changed parameters in that mode, but that is to be expected as it is non-interactive!" Size="250px" />
+    <CodeExample Code="@("<QRCode Data=\"Hello World!\" Size=\"150px\" />")" />
+</div>
 
-@code {
-    string Data { get; set; } = "This is a QR code of size 150px by 150px";
-}
+<div class="card p-3 line-numbers">
+    <p>
+        QR Code with image
+    </p>
+
+    <QRCode Data="This is a QR code showing a logo in its centre. Don't forget to set the error correction to a higher value for the best effect." Size="250px" ErrorCorrection="ErrorCorrection.High" Image="images/logo.png" />
+
+    <CodeExample Code="@("<QRCode Data=\"This is a QR code showing a logo in its centre. Don't forget to set the error correction to a higher value for the best effect.\" Size=\"250px\" ErrorCorrection=\"ErrorCorrection.High\" Image=\"images/logo.png\" />")" />
+</div>
+
+<div class="card p-3 line-numbers">
+    <p>
+        150px, Hooked up to change button (will change the data to a new Guid each time)
+    </p>
+    <p>
+        This is the only example on this page requiring WASM rendering, otherwise the change button would do nothing. the others all render using static SSR.
+    </p>
+    
+    <InteractiveQRCode />
+</div>
+
+<div class="card p-3 line-numbers">
+    <p>
+        250px, red and aqua, 4 padding cells
+    </p>
+    <QRCode Data="This is a QR code of size 250px, using colours red and aqua and 4 padding cells!" Size="250px" ForeColor="#dd2222" BackColor="aqua" PaddingCells="4" />
+
+    <CodeExample Code="@("<QRCode Data=\"This is a QR code of size 250px, using colours red and aqua and 4 padding cells!\" Size=\"250px\" ForeColor=\"#dd2222\" BackColor=\"aqua\" PaddingCells=\"4\" />")" />
+</div>
+
+<div class="card p-3 line-numbers">
+    <p>
+        250px, lots of encoded data
+    </p>
+    <QRCode Data="This is a 250px QR code, which has a lot of data. There really is much more here than the examples above, and so there is more data packed into a smaller area. This library was made by Pingu, by the way. Isn't this such an awesome library? It even works with the new .net 8 Blazor project type and works with static SSR! You only miss out on it updating to changed parameters in that mode, but that is to be expected as it is non-interactive!" Size="250px" />
+
+    <CodeExample Code="@("<QRCode Data=\"This is a 250px QR code, which has a lot of data. There really is much more here than the examples above, and so there is more data packed into a smaller area. This library was made by Pingu, by the way. Isn't this such an awesome library? It even works with the new .net 8 Blazor project type and works with static SSR! You only miss out on it updating to changed parameters in that mode, but that is to be expected as it is non-interactive!\" Size=\"250px\" />")" />
+</div>

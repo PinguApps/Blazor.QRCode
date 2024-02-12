@@ -1,0 +1,30 @@
+﻿@rendermode RenderMode.InteractiveWebAssembly
+
+<button @onclick="ChangeData" class="mb-4 align-self-start">
+    Change!
+</button>
+<QRCode Data="@Data" Size="150px" />
+
+<CodeExample Code="@(@"<button @onclick=""ChangeData"">
+    Change!
+</button>
+
+<QRCode Data=""@Data"" Size=""150px"" />
+
+@code {
+    string Data { get; set; } = ""This is a QR code of size 150px by 150px"";
+
+    void ChangeData()
+    {
+        Data = Guid.NewGuid().ToString();
+    }
+}")" />
+
+@code {
+    string Data { get; set; } = "This is a QR code of size 150px by 150px";
+
+    void ChangeData()
+    {
+        Data = Guid.NewGuid().ToString();
+    }
+}
