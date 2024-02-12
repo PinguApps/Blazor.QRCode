@@ -1,4 +1,4 @@
-using BlazorAutoNet8.Client.Pages;
+//using BlazorAutoNet8.Client.Pages;
 using BlazorAutoNet8.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +30,6 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(Counter).Assembly);
+    ;//.AddAdditionalAssemblies(typeof(Counter).Assembly);
 
 app.Run();

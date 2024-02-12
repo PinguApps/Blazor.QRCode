@@ -1,0 +1,23 @@
+﻿@inject IJSRuntime JSRuntime
+@rendermode RenderMode.InteractiveWebAssembly
+
+<pre>
+    <code class="@($"language-{Language}")" data-prismjs-copy="Copy">
+        @Code
+    </code>
+</pre>
+
+@code {
+    [Parameter, EditorRequired] public string Code { get; set; } = default!;
+    [Parameter] public string Language { get; set; } = "razor";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("Prism.highlightAll");
+        }
+    }
+}
