@@ -16,8 +16,4 @@
     <ProjectReference Include="..\..\PinguApps.Blazor.QRCode\PinguApps.Blazor.QRCode.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\" />
-  </ItemGroup>
-
 </Project>

@@ -1,0 +1,123 @@
+﻿@page "/playground"
+@rendermode RenderMode.InteractiveWebAssembly
+
+<PageTitle>Playground | PinguApps.Blazor.QRCode</PageTitle>
+
+<h3>Playground</h3>
+
+<p>
+    Changing the QR code requires an interactive rendering mode, and so this page is rendered using WASM.
+</p>
+
+<div class="card p-3 line-numbers">
+    <QRCode Data="@Data" ErrorCorrection="ErrorCorrection" Image="@Image" Size="@Size" PaddingCells="PaddingCells" ForeColor="@ForeColor"
+            BackColor="@BackColor" AriaDescription="@AriaDescription" Class="@Class" Id="@Id" />
+
+    <EditForm Model="SettingsModel" OnValidSubmit="UpdateQRCode">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="data" class="form-label">Data</label>
+                    <InputTextArea @bind-Value="SettingsModel.Data" id="data" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <InputRadioGroup @bind-Value="SettingsModel.ErrorCorrection" Name="ec">
+                        @foreach (var ecValue in Enum.GetValues(typeof(ErrorCorrection)))
+                        {
+                            <div class="form-check form-check-inline">
+                                <InputRadio Value="ecValue" Name="ec" class="form-check-input" id="@($"ErrorCorrectionValue{ecValue}")" />
+                                <label class="form-check-label" for="@($"ErrorCorrectionValue{ecValue}")">@ecValue.ToString()</label>
+                            </div>
+                        }
+                    </InputRadioGroup>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <InputText @bind-Value="SettingsModel.Image" id="image" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="size" class="form-label">Size</label>
+                    <InputText @bind-Value="SettingsModel.Size" id="size" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="padding" class="form-label">Padding</label>
+                    <InputNumber @bind-Value="SettingsModel.PaddingCells" id="padding" class="form-control" />
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="fore-color" class="form-label">Fore Color</label>
+                    <InputText @bind-Value="SettingsModel.ForeColor" id="fore-color" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="back-color" class="form-label">Back Color</label>
+                    <InputText @bind-Value="SettingsModel.BackColor" id="back-color" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="aria-description" class="form-label">Aria Description</label>
+                    <InputText @bind-Value="SettingsModel.AriaDescription" id="aria-description" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="class" class="form-label">Class</label>
+                    <InputText @bind-Value="SettingsModel.Class" id="class" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="id" class="form-label">Id</label>
+                    <InputText @bind-Value="SettingsModel.Id" id="id" class="form-control" />
+                </div>
+            </div>
+            <button type="submit">Update</button>
+        </div>
+    </EditForm>
+
+</div>
+
+@code {
+    Settings SettingsModel { get; set; } = new();
+
+    string Data { get; set; } = default!;
+    ErrorCorrection ErrorCorrection { get; set; }
+    string? Image { get; set; }
+    string Size { get; set; } = default!;
+    int PaddingCells { get; set; }
+    string ForeColor { get; set; } = default!;
+    string BackColor { get; set; } = default!;
+    string AriaDescription { get; set; } = default!;
+    string? Class { get; set; }
+    string? Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        UpdateQRCode();
+    }
+
+    void UpdateQRCode()
+    {
+        Data = SettingsModel.Data;
+        ErrorCorrection = SettingsModel.ErrorCorrection;
+        Image = SettingsModel.Image;
+        Size = SettingsModel.Size;
+        PaddingCells = SettingsModel.PaddingCells;
+        ForeColor = SettingsModel.ForeColor;
+        BackColor = SettingsModel.BackColor;
+        AriaDescription = SettingsModel.AriaDescription;
+        Class = SettingsModel.Class;
+        Id = SettingsModel.Id;
+    }
+
+    public class Settings
+    {
+        public string Data { get; set; } = "Welcome to the playground, where you are able to customise the QR code generated on this page to test the true capabilities of the library.";
+        public ErrorCorrection ErrorCorrection { get; set; } = ErrorCorrection.Quartile;
+        public string? Image { get; set; }
+        public string Size { get; set; } = "200px";
+        public int PaddingCells { get; set; } = 1;
+        public string ForeColor { get; set; } = "#000000";
+        public string BackColor { get; set; } = "#ffffff";
+        public string AriaDescription { get; set; } = "QR Code";
+        public string? Class { get; set; }
+        public string? Id { get; set; }
+    }
+}

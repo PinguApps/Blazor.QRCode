@@ -1,0 +1,285 @@
+﻿@page "/docs"
+
+<PageTitle>Docs | PinguApps.Blazor.QRCode</PageTitle>
+
+<h2>Docs</h2>
+
+<p>
+    A Blazor component for generating QR codes. This component encodes specified data into a QR code image, which can be customized in terms of size, colors, and error correction level. The QR code is generated as an SVG for optimal scalability and clarity.
+</p>
+
+<h3>
+    📃 Contents
+</h3>
+
+<ul>
+    <li><a href="/docs#features" target="_top">✅ Features</a></li>
+    <li><a href="/docs#install" target="_top">🔧 Installation</a></li>
+    <li><a href="/docs#usage" target="_top">🚀 Usage</a></li>
+    <li><a href="/docs#parameters" target="_top">🟣 Parameters</a></li>
+</ul>
+
+<h3 id="features" style="padding-top:calc(3.5rem + 66px);margin-top:calc(-3.5rem - 66px);">
+    ✅ Features
+</h3>
+
+<ul dir="auto">
+    <li><strong>JavaScript-Free</strong>: No dependency on JavaScript, ensuring full functionality even in environments where JavaScript is disabled or not supported.</li>
+    <li><strong>Static SSR &amp; Prerendering Compatibility</strong>: Seamlessly works with static SSR (Server-Side Rendering) and prerendering scenarios, making it suitable for the static SSR pages of the new .NET Identity template as a 2FA QR code generator.</li>
+    <li><strong>Option to add logo or image</strong>: Allows the ability to add your own image to the center of the QR Code. If using this then favour selecting higher error correction values.</li>
+    <li><strong>Adjustable Error Correction</strong>: Allows setting the error correction level (Low, Medium, Quartile, High) to make the QR code decodable even when partially damaged or obscured.</li>
+    <li><strong>Dynamic Data Encoding</strong>: Capable of encoding provided string data into the QR code, facilitating versatile usage scenarios.</li>
+    <li><strong>Customizable Size</strong>: Supports setting the width and height of the generated SVG QR code, with a default of "100%" for flexible integration into various UI designs.</li>
+    <li><strong>Configurable Padding</strong>: Allows specifying the number of empty cells as padding around the QR code to adjust its appearance, with a default setting of 1.</li>
+    <li><strong>Foreground and Background Color Customization</strong>: Offers options to set the foreground and background colors of the QR code, defaulting to black (#000000) and white (#ffffff), respectively.</li>
+    <li><strong>Accessibility Support</strong>: Enhances usability for screen reader users with an accessible description for the QR code, which is used as the <code>aria-label</code> attribute value of the SVG element.</li>
+    <li><strong>Styling Options</strong>: Supports optional CSS class and ID attributes for the QR code, enabling further customization and styling flexibility.</li>
+</ul>
+
+<h3 id="install" style="padding-top:calc(3.5rem + 66px);margin-top:calc(-3.5rem - 66px);">
+    🔧 Installation
+</h3>
+
+<p>
+    To install the package, you can either install with the following command: <code>Install-Package PinguApps.Blazor.QRCode</code> Or you can search in the Nuget package manager for <code>PinguApps.Blazor.QRCode</code>.
+</p>
+
+<h3 id="usage" style="padding-top:calc(3.5rem + 66px);margin-top:calc(-3.5rem - 66px);">
+    🚀 Usage
+</h3>
+
+<p>
+    Once the package is installed, you will want to add the following statement to your <code>_Imports.razor</code>:
+</p>
+
+<CodeExample Code="@("@using PinguApps.Blazor.QRCode")" />
+
+<p>
+    Now you can simply use the component:
+</p>
+
+<CodeExample Code="@("<QRCode Data=\"My Data!\" Size=\"150px\" />")" />
+
+<h3 id="parameters" style="padding-top:calc(3.5rem + 66px);margin-top:calc(-3.5rem - 66px);">
+    🟣 Parameters
+</h3>
+
+<h4>
+    Data
+</h4>
+<p>
+    The data to be encoded into the QR code.
+</p>
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th class="text-center">Type</th>
+            <th class="text-center">Required?</th>
+            <th class="text-center">Default Value</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr>
+            <td align="center">String</td>
+            <td align="center">❌</td>
+            <td align="center"><code>string.Empty</code></td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>
+    ErrorCorrection
+</h4>
+<p>
+    Sets the error correction level for the QR code, which enables it to be decoded even if partially damaged or obscured.
+</p>
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th class="text-center">Type</th>
+            <th class="text-center">Required?</th>
+            <th class="text-center">Default Value</th>
+            <th class="text-center">Possible Values</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr>
+            <td align="center">ErrorCorrection</td>
+            <td align="center">❌</td>
+            <td align="center"><code>ErrorCorrection.Low</code></td>
+            <td align="center">
+                <code>ErrorCorrection.Low</code><br />
+                <code>ErrorCorrection.Medium</code><br />
+                <code>ErrorCorrection.Quartile</code><br />
+                <code>ErrorCorrection.High</code><br />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>
+    Size
+</h4>
+<p>
+    Sets the width and height of the generated SVG.
+</p>
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th class="text-center">Type</th>
+            <th class="text-center">Required?</th>
+            <th class="text-center">Default Value</th>
+            <th class="text-center">Possible Values</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr>
+            <td align="center">String</td>
+            <td align="center">❌</td>
+            <td align="center">100%</td>
+            <td align="center">Any valid html size for width & height</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>
+    PaddingCells
+</h4>
+<p>
+    The number of empty cells as padding around the QR code.
+</p>
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th class="text-center">Type</th>
+            <th class="text-center">Required?</th>
+            <th class="text-center">Default Value</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr>
+            <td align="center">Int</td>
+            <td align="center">❌</td>
+            <td align="center">1</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>
+    ForeColor
+</h4>
+<p>
+    Sets the foreground color of the QR code.
+</p>
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th class="text-center">Type</th>
+            <th class="text-center">Required?</th>
+            <th class="text-center">Default Value</th>
+            <th class="text-center">Possible Values</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr>
+            <td align="center">String</td>
+            <td align="center">❌</td>
+            <td align="center">#000000</td>
+            <td align="center">Any valid html color</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>
+    BackColor
+</h4>
+<p>
+    Sets the background color of the QR code.
+</p>
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th class="text-center">Type</th>
+            <th class="text-center">Required?</th>
+            <th class="text-center">Default Value</th>
+            <th class="text-center">Possible Values</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr>
+            <td align="center">String</td>
+            <td align="center">❌</td>
+            <td align="center">#ffffff</td>
+            <td align="center">Any valid html color</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>
+    AriaDescription
+</h4>
+<p>
+    Provides an accessible description for the QR code, enhancing usability for screen reader users. This description is used as the aria-label attribute value of the QR code's SVG element, offering context or details about the QR code's content or purpose.
+</p>
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th class="text-center">Type</th>
+            <th class="text-center">Required?</th>
+            <th class="text-center">Default Value</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr>
+            <td align="center">String</td>
+            <td align="center">❌</td>
+            <td align="center">QR Code</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>
+    Class
+</h4>
+<p>
+    Optional CSS class to be applied to the QR code.
+</p>
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th class="text-center">Type</th>
+            <th class="text-center">Required?</th>
+            <th class="text-center">Default Value</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr>
+            <td align="center">String?</td>
+            <td align="center">❌</td>
+            <td align="center"><code>null</code></td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>
+    Id
+</h4>
+<p>
+    Optional ID to be applied to the QR code.
+</p>
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th class="text-center">Type</th>
+            <th class="text-center">Required?</th>
+            <th class="text-center">Default Value</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr>
+            <td align="center">String?</td>
+            <td align="center">❌</td>
+            <td align="center"><code>null</code></td>
+        </tr>
+    </tbody>
+</table>
