@@ -91,7 +91,7 @@
 
     void GenerateQR()
     {
-        var qr = QrCode.EncodeText(Data, GetEcc);
+        var qr = QrCode.EncodeText(Data ?? "", GetEcc);
         var path = qr.ToGraphicsPath(PaddingCells);
         var viewboxSize = qr.Size + PaddingCells * 2;
 

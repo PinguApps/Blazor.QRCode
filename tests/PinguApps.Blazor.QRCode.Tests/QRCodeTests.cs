@@ -223,4 +223,20 @@ public class QRCodeTests
         settings.UseParameters(data);
         await Verify(component.Find("path").GetAttribute("d"), settings);
     }
+
+    [Fact]
+    public void AvoidsCrashWhenDataNull()
+    {
+        // Arrange
+        using var context = new TestContext();
+
+        // Act
+        var exception = Record.Exception(() =>
+        {
+            var component = context.RenderComponent<QRCode>(parameters => parameters.Add(p => p.Data, null));
+        });
+
+        // Assert
+        Assert.Null(exception);
+    }
 }
