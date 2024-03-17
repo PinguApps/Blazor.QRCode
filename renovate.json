@@ -1,6 +1,13 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-      "github>pinguapps/renovate-config"
-    ]
-  }
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>pinguapps/renovate-config"
+  ],
+  "packageRules": [
+    {
+      "matchFileNames": ["**/PinguApps.Blazor.QRCode.csproj"],
+      "matchDepNames": ["Microsoft.AspNetCore.Components.Web"],
+      "enabled": false
+    }
+  ]
+}
