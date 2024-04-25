@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4
+      uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
     
     - name: Setup .NET
       uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4
@@ -47,7 +47,7 @@ jobs:
       contents: write
     steps:
     - name: Checkout
-      uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4
+      uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
     
     - name: Setup .NET
       uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4
@@ -82,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4
+      uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
         
     - name: Setup .NET
       uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4
