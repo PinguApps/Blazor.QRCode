@@ -9,7 +9,7 @@ on:
 
 env:
   PROJECT_NAME: PinguApps.Blazor.QRCode
-  DOTNET_VERSION: '8.0'
+  DOTNET_VERSION: '9.0'
   BASE_HREF: 'Blazor.QRCode'
   BRANCH: 'main'
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
