@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorAutoNet8.Client\BlazorAutoNet8.Client.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.11" />
   </ItemGroup>
 
 </Project>
