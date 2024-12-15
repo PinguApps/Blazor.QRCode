@@ -1,7 +1,7 @@
 {
   "entryAssembly": "BlazorWasmNet6",
   "resources": {
-    "hash": "sha256-z3WOEAMDyI2oHmxK+gPGUgbnl7x+wJug9WmcvOlcHJk=",
+    "hash": "sha256-Pn1bbOJoBWvQdTA+pEVV16E4fPC6a/WjKqEqp7whps8=",
     "runtime": {
       "dotnet.js": "sha256-pu7MO47B6So4jcW6iY2UI11lBZYz2EQnJKiYNsOpNJg=",
       "dotnet.timezones.blat": "sha256-vrFYQt55a4tGoDGoyRfjjGa1nSecx646RK78iTzPWCM=",
@@ -12,7 +12,7 @@
     },
     "coreAssembly": {},
     "assembly": {
-      "BlazorWasmNet6.dll": "sha256-exXQi8+Di8eEu0HPkaLlKgbP3NcmdxNAC8mJZI4jX0o=",
+      "BlazorWasmNet6.dll": "sha256-cacleR0Ce4yT0QTZG2YXqnmgCdf9U+4huMMb+dnGB1A=",
       "Microsoft.AspNetCore.Components.dll": "sha256-w+i4K2616Fh5b3hg8aZ7UlmB1KXkKj0972JK2wFh9lU=",
       "Microsoft.AspNetCore.Components.Forms.dll": "sha256-bIHeAKJmOkBDAfenKuGBjE/yJCq55juLij9EADxCcio=",
       "Microsoft.AspNetCore.Components.Web.dll": "sha256-vBijmql5PbehB2PVJxXsC0NwTwtf158pKFY8I0jnupk=",
@@ -28,7 +28,7 @@
       "Microsoft.Extensions.Primitives.dll": "sha256-n6QXvHqKTYmcHREWBgDipYiI62mvGVnLUG7SK8MMERg=",
       "Microsoft.JSInterop.dll": "sha256-TX37n/oZuwbxon0jEeZe3hVy+DFt7BlG4wLFHOpqfVQ=",
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-rGa6H5j58fG6csDkI5u0yETHGykCWUdpBDSsSikFcrY=",
-      "PinguApps.Blazor.QRCode.dll": "sha256-tl7mlssJIyZ83XICephV+5uLJmsWYFq6citXw1fRxoU=",
+      "PinguApps.Blazor.QRCode.dll": "sha256-VIWF4GPsdx2pirxtd1GNLsdKbzkuQJQGww+49mwPj6w=",
       "QrCodeGenerator.dll": "sha256-tV7c9eJzGaONkzHj2p0rVfscuiE02AzKBb3H7AGo0kU=",
       "System.Collections.Concurrent.dll": "sha256-u+FCUuM01lMH2IOzc7jobh/4y0LsEUHUVjXPE5RT26M=",
       "System.Collections.dll": "sha256-7EqwzQWNt612dzhylJJYg+Ok7zKfSVEEjl0kdtZyqQo=",
