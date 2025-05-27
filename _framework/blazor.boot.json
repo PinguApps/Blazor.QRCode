@@ -1,7 +1,7 @@
 {
   "entryAssembly": "BlazorWasmNet6",
   "resources": {
-    "hash": "sha256-nag9rG/gX3aAmQ8YDY5q/aydiLqnJ2MglWnrzLRLa4o=",
+    "hash": "sha256-PD3yGYu9BcpDKtj25ymrr7cX7dOdLtqiNo0fFytSqgY=",
     "runtime": {
       "dotnet.js": "sha256-pu7MO47B6So4jcW6iY2UI11lBZYz2EQnJKiYNsOpNJg=",
       "dotnet.timezones.blat": "sha256-vrFYQt55a4tGoDGoyRfjjGa1nSecx646RK78iTzPWCM=",
@@ -50,8 +50,8 @@
       "System.Text.RegularExpressions.dll": "sha256-laS3Zf2w44PIy7klwn939AvmcigDscUnyww2mXrWcHA=",
       "System.dll": "sha256-/CoLM+0eZmBCLWHyE5EaG/XonczpuGmu7BxChElWHqE=",
       "System.Private.CoreLib.dll": "sha256-v3zl8Efi+vgGfTEemwWNA0UOAs7Hyr/L5RFv29yh5DU=",
-      "PinguApps.Blazor.QRCode.dll": "sha256-ubMSERSlNPfpRhy7ttedb2j3qO1P9RuaUhrJzr8kLKk=",
-      "BlazorWasmNet6.dll": "sha256-KxQfP7JjE1awKjH/HESF1xDNIs/T3A2INc8WTrvztX8="
+      "PinguApps.Blazor.QRCode.dll": "sha256-bkpIf6DRnmvzt8jbVqH0SBZTquCbv11AalTDOcyj1NY=",
+      "BlazorWasmNet6.dll": "sha256-2VQEis6mUrLVdCQ04xgbJKeksNy7KNrtJhhBofPmfBI="
     },
     "runtimeAssets": {
       "dotnet.wasm": {
