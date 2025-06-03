@@ -8,10 +8,15 @@
         150px, encoded "Hello World!"
     </p>
 
-    <QRCode Data="Hello World!" Size="150px" />
+    <QRCode @ref="QRCodeRef" Data="Hello World!" Size="150px" />
     <pre>
         <code class="language-razor" data-prismjs-copy="Copy">
             @(@"<QRCode Data=""Hello World!"" Size=""150px"" />")
+        </code>
+    </pre>
+    <pre>
+        <code class="language-html" data-prismjs-copy="Copy">
+            @QRCodeRef?.GenerateSvgString()
         </code>
     </pre>
 </div>
@@ -84,6 +89,7 @@
 
 @code {
     string Data { get; set; } = "This is a QR code of size 150px by 150px";
+    QRCode QRCodeRef { get; set; } = default!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -91,6 +97,7 @@
 
         if(firstRender)
         {
+            await InvokeAsync(StateHasChanged);
             await JSRuntime.InvokeVoidAsync("Prism.highlightAll");
         }
     }

@@ -91,6 +91,13 @@
 
     void GenerateQR()
     {
+        var svg = GenerateSvgString();
+
+        MarkupString = new MarkupString(svg);
+    }
+
+    public string GenerateSvgString()
+    {
         var qr = QrCode.EncodeText(Data ?? "", GetEcc);
         var path = qr.ToGraphicsPath(PaddingCells);
         var viewboxSize = qr.Size + PaddingCells * 2;
@@ -107,14 +114,14 @@
             .Append(SvgTagPart4)
             .Append(AriaDescription);
 
-        if(Id is not null)
+        if (Id is not null)
         {
             sb.Append("\"")
                 .Append(" id=\"")
                 .Append(Id);
         }
 
-        if(Class is not null)
+        if (Class is not null)
         {
             sb.Append("\"")
                 .Append(" class=\"")
@@ -131,7 +138,7 @@
             .Append(ForeColor)
             .AppendLine(PathTagPart3);
 
-        if(!string.IsNullOrEmpty(Image))
+        if (!string.IsNullOrEmpty(Image))
         {
             var maxCoverage = ErrorCorrection switch
             {
@@ -142,9 +149,9 @@
                 _ => throw new Exception($"Invalid value assigned to {nameof(ErrorCorrection)}")
             };
 
-            var imageSize = (int) Math.Min(Math.Floor(qr.Size * Math.Sqrt(maxCoverage)), qr.Size - 16);
+            var imageSize = (int)Math.Min(Math.Floor(qr.Size * Math.Sqrt(maxCoverage)), qr.Size - 16);
 
-            if(imageSize > 0)
+            if (imageSize > 0)
             {
                 var padding = PaddingCells + qr.Size / 2 - imageSize / 2;
 
@@ -164,6 +171,6 @@
 
         sb.AppendLine(ClosingTag);
 
-        MarkupString = new MarkupString(sb.ToString());
+        return sb.ToString();
     }
 }
