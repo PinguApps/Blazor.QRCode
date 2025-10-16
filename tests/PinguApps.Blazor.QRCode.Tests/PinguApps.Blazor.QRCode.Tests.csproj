@@ -11,9 +11,9 @@
 
   <ItemGroup>
     <PackageReference Include="bunit" Version="1.40.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.10" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
     <PackageReference Include="Verify.Xunit" Version="31.0.1" />
     <PackageReference Include="xunit" Version="2.9.3" />
