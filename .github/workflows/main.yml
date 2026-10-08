@@ -3,8 +3,6 @@ name: Main
 on:
   push:
     branches: [ main ]
-  release:
-    types: [ published ]
   workflow_dispatch:
 
 env:
@@ -13,8 +11,6 @@ env:
   BASE_HREF: 'Blazor.QRCode'
   BRANCH: 'main'
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NUGET_FEED: https://api.nuget.org/v3/index.json
-  NUGET_KEY: ${{ secrets.NUGET_KEY }}
 
 jobs:
   build:
@@ -74,29 +70,3 @@ jobs:
       with:
         branch: gh-pages
         folder: src/BlazorWasmNet6/bin/Release/net6.0/publish/wwwroot
-
-  push-nuget:
-    needs: build
-    if: github.event_name == 'release'
-    name: Push Nuget
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
-        
-    - name: Setup .NET
-      uses: actions/setup-dotnet@d4c94342e560b34958eacfc5d055d21461ed1c5d # v5
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-
-    - name: Create Nuget Package
-      run: |
-        arrTag=(${GITHUB_REF//\// })
-        VERSION="${arrTag[2]}"
-        echo Version: $VERSION
-        VERSION="${VERSION:1}"
-        echo Clean Version: $VERSION
-        dotnet pack -c Release --verbosity normal --include-symbols --include-source -p:PackageVersion=$VERSION -o nupkg src/$PROJECT_NAME/$PROJECT_NAME.csproj
-
-    - name: Push to NuGet Feed
-      run: dotnet nuget push ./nupkg/*.nupkg --source $NUGET_FEED --api-key $NUGET_KEY --skip-duplicate
