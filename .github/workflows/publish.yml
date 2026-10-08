@@ -1,0 +1,55 @@
+name: Publish NuGet Packages
+
+on:
+  release:
+    types: [ published ]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to publish
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@d4c94342e560b34958eacfc5d055d21461ed1c5d # v5
+        with:
+          dotnet-version: '9.0'
+
+      - name: Resolve package version
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name || inputs.tag }}
+        run: echo "PACKAGE_VERSION=${RELEASE_TAG#v}" >> "$GITHUB_ENV"
+
+      - name: Build and validate release
+        run: dotnet test -c Release tests/PinguApps.Blazor.QRCode.Tests/
+      - name: Create NuGet packages
+        run: |
+          dotnet pack -c Release --include-symbols --include-source -p:SymbolPackageFormat=snupkg -p:PackageVersion="$PACKAGE_VERSION" -o nupkg src/PinguApps.Blazor.QRCode/PinguApps.Blazor.QRCode.csproj
+
+      - name: Upload package artifacts
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: packages
+          path: nupkg/*
+
+      - name: NuGet login (OIDC)
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Publish packages and symbols
+        run: dotnet nuget push ./nupkg/*.{nupkg,snupkg} --source https://api.nuget.org/v3/index.json --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
